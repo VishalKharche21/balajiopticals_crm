@@ -1,0 +1,72 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block breadcrumb %}
+
+<div class="pagetitle">
+    <h1>Invoice List</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'main' %}">Dashboard</a></li>
+            <li class="breadcrumb-item">Sales</li>
+            <li class="breadcrumb-item active">Invoice List</li>
+        </ol>
+    </nav>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<table class="table bg-white table-hover datatable">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Date & Time</th>
+            <th>Bill No</th>
+            <th>Customer Name</th>
+            <th>Mobile No</th>
+            <th>Total Amount(Rs)</th>
+            <th>User Name</th>
+            <th>Status</th>
+            <th>Payment Status</th>
+            <th>Action</th>
+            
+        </tr>
+    </thead>
+    {% for i in data %}
+    <tr>
+        <td>{{i.id}}</td>
+        <td>{{i.billdate}}</td>
+        <td>{{i.billno}}</td>
+        <td>{{i.name|title}}</td>
+        <td>{{i.mobno}}</td>
+        <td>{{i.paybleamount}}</td>
+        <td>{{i.generatedby}}</td>
+        <td>
+            {% if i.order_status == "no" %}
+            <span class="badge bg-danger">In Process</span>
+            {% elif i.order_status == "yes" and i.deliver_status == "no" %}
+            <span class="badge bg-warning">Ready For Delivery</span>
+            {% elif i.deliver_status == "yes" %}
+            <span class="badge bg-success">Delivered</span>
+            {% endif %}
+        </td>
+        <td>
+            {% if i.pendingamount != 0 %}
+            <a href="{% url 'pending_amount' %}"><span class="badge bg-danger">Pending</span></a>
+            {% else %}
+            <span class="badge bg-success">Paid</span>
+            {% endif %}
+        </td>
+
+        <td>
+            <div class="d-flex">
+                <a href="{% url 'download_invoice_view' i.id %}" target="_blank"
+                    class="btn btn-warning mx-1 rounded-circle btn-sm">
+                    <i class="bi bi-printer"></i>
+                </a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

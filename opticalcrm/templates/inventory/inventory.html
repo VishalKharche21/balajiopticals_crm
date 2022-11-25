@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block breadcrumb %}
+
+<div class="pagetitle">
+    <h1>Inventory Details</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'main' %}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Inventory Details</li>
+        </ol>
+    </nav>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+        <table class="table bg-white table-hover datatable">
+            <tr class="table-dark">
+                <th>#</th>
+                <th>Product</th>
+                <th>Product Code</th>
+                <th>Description</th>
+                <th>Available Stock</th>
+                <th>Action</th>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.product|title}}</td>
+                <td>{{i.product_code}}</td>
+                <td>{{i.description|title}}</td>
+                <td>{{i.available_stock}}</td>
+                <td>
+                    <a href="" class="btn btn-warning btn-sm"><i class="bi bi-box-arrow-up"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+{% endblock content %}
+

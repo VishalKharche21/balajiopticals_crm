@@ -1,0 +1,184 @@
+ <!-- ======= Sidebar ======= -->
+ <aside id="sidebar" class="sidebar">
+  
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'main' %}">
+          <i class="bi bi-grid-fill"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+<!-- start Profile Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="">
+          <i class="bi bi-person-fill"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+    <!-- start Products Nav -->
+<li class="nav-item">
+  <a class="nav-link collapsed" data-bs-target="#tables-nav03" data-bs-toggle="collapse" href="#">
+    <i class="bi bi-bag-fill"></i><span>Products</span><i class="bi bi-chevron-down ms-auto"></i>
+  </a>
+  <ul id="tables-nav03" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+    <li>
+      <a href="{% url 'frame_add' %}">
+        <i class="bi bi-circle"></i><span>Frame</span>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'glass_add' %}">
+        <i class="bi bi-circle"></i><span>Glasses</span>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'goggles_add' %}">
+        <i class="bi bi-circle"></i><span>Goggles</span>
+      </a>
+    </li>
+    <li>
+      <a href="">
+        <i class="bi bi-circle"></i><span>Contact Lens</span>
+      </a>
+    </li>
+    <li>
+      <a href="">
+        <i class="bi bi-circle"></i><span>Solutions</span>
+      </a>
+    </li>
+  </ul>
+</li><!-- End Products Nav -->
+
+    <!-- start customer Page Nav -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#tables-nav0" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-people-fill"></i><span>Customers</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="tables-nav0" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="{% url 'customer_add' %}">
+            <i class="bi bi-circle"></i><span>Add Customer</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'customer_list' %}">
+            <i class="bi bi-circle"></i><span>Customers List</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!-- End customer Page Nav -->
+
+      
+<!-- start sales Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-sidebar-reverse"></i><span>Sales</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'invoicelist' %}">
+              <i class="bi bi-circle"></i><span>Invoice list</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'invoice-generate' %}">
+              <i class="bi bi-circle"></i><span>Generate Invoice</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'pending_order' %}">
+              <i class="bi bi-circle"></i><span>Order List</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'complete_order' %}">
+              <i class="bi bi-circle"></i><span>Order Completed List</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'pending_amount' %}">
+              <i class="bi bi-circle"></i><span>Pending Amount List</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End invoie Page Nav -->
+
+    <!-- start Inventory Nav -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url 'inventory_details' %}">
+        <i class="bi bi-cart-check-fill"></i>
+        <span>Inventory</span>
+      </a>
+    </li><!-- End Inventory Nav -->
+
+        
+<!-- start Purchase Nav -->
+<li class="nav-item">
+  <a class="nav-link collapsed" data-bs-target="#tables-nav01" data-bs-toggle="collapse" href="#">
+    <i class="bi bi-tags-fill"></i><span>Purchase</span><i class="bi bi-chevron-down ms-auto"></i>
+  </a>
+  <ul id="tables-nav01" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+    <li>
+      <a href="{% url 'purchase_add' %}">
+        <i class="bi bi-circle"></i><span>Add Purchase</span>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'purchase_history' %}">
+        <i class="bi bi-circle"></i><span>Purchase History</span>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'confirm_barcode' %}">
+        <i class="bi bi-circle"></i><span>Pending Barcode <span class="badge rounded-pill bg-danger">{{pb}}</span></span>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'supplier_add' %}">
+        <i class="bi bi-circle"></i><span>Add Supplier </span>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'supplier_list' %}">
+        <i class="bi bi-circle"></i><span>Supplier List</span>
+      </a>
+    </li>
+  </ul>
+</li><!-- End Purchase Nav -->
+
+<!-- start Prescription Nav -->
+<li class="nav-item">
+  <a class="nav-link collapsed" data-bs-target="#tables-nav02" data-bs-toggle="collapse" href="#">
+    <i class="bi bi-file-earmark-medical-fill"></i><span>Prescription</span><i class="bi bi-chevron-down ms-auto"></i>
+  </a>
+  <ul id="tables-nav02" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+    <li>
+      <a href="{% url 'prescription_add' %}">
+        <i class="bi bi-circle"></i><span>Add Prescription</span>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'prescription_data' %}">
+        <i class="bi bi-circle"></i><span>Prescriptions List</span>
+      </a>
+    </li>
+    
+  </ul>
+</li><!-- End Prescription Nav -->
+
+
+
+    
+
+
+
+
+      
+
+    </ul>
+
+  </aside><!-- End Sidebar-->

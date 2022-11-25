@@ -1,0 +1,153 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block breadcrumb %}
+
+<div class="pagetitle">
+    <h1>Add Customers</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'main' %}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Add Customers</li>
+        </ol>
+    </nav>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-2">
+
+    </div>
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-body pt-3">
+                <form id="form" class="row g-3 needs-validation" method="POST" action="{% url 'customer_add' %}" novalidate>
+                    {% csrf_token %}
+                    <div class="col-md-4">
+                        <label for="validationCustom01" class="form-label">First name</label>
+                        <input type="text" class="form-control" id="validationCustom01" name="fname" required>
+                        <div class="invalid-feedback" id="nameif">
+                            Please choose a First Name.
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="validationCustom02" class="form-label">middle name</label>
+                        <input type="text" class="form-control" id="validationCustom02" name="mname" required>
+                        <div class="invalid-feedback">
+                            Please choose a Middle Name.
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="validationCustom03" class="form-label">Last name</label>
+                        <input type="text" class="form-control" id="validationCustom03" name="lname" required>
+                        <div class="invalid-feedback">
+                            Please choose a Last Name.
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustomUsername" class="form-label">Mobile No</label>
+                        <div class="input-group has-validation">
+
+                            <input type="text" class="form-control" id="validationCustomUsername" name="mobno"
+                                aria-describedby="inputGroupPrepend" required>
+
+                            <div class="invalid-feedback">
+                                Please choose a Mobile No.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email ID</label>
+                        <div>
+                            <input type="text" name="emailid" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <label class="form-label">BirthDate</label>
+                        <div>
+                            <input type="date" id="bdate" name="bdate" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label">Age</label>
+                        <div>
+                            <input type="text" id="age" name="age" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-12">
+                        <label for="validationCustom04" class="form-label">Address</label>
+                        <input type="text" name="address" class="form-control" id="validationCustom04" required>
+                        <div class="invalid-feedback">
+                            this field required.
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="validationCustom05" class="form-label">city</label>
+                        <input type="text" name="city" class="form-control" id="validationCustom05" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid city.
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="validationCustom06" class="form-label">state</label>
+                        <input type="text" name="state" class="form-control" id="validationCustom06" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid state.
+                        </div>
+                    </div>
+
+
+                    <div class="col-12">
+                        <button class="btn btn-primary" id="submit" type="submit">Submit form</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/validate.min.js' %}"></script>
+<script src="{% static 'js/message.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $(document).on('change', '#bdate', function () {
+            var bdate = $('#bdate').val().split('-');
+            var today = new Date();
+            var y = today.getFullYear();
+            var by = bdate[0]
+            var age = y - by
+            $('#age').val(age)
+        });
+        // $(document).on('click','#submit',function(){
+        //     var name = $('#validationCustom01').val()
+        //     console.log(name);
+        //     if (name = 'vishal'){
+        //         $('#nameif').text('customer already hello').show()
+        //     }
+        //     else{
+        //         $('#nameif').text('customer already dd').show()
+        //     }
+        // })
+        
+    });
+</script>
+{% if messages %}
+{% for message in messages %}
+
+<script>
+    swal({
+        text: "{{message}}",
+        icon: "success",
+    }).then(function () {
+        window.location = "";
+    });
+</script>
+
+{% endfor %}
+{% endif %}
+
+{% endblock content %}

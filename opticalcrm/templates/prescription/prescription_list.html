@@ -1,0 +1,107 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block breadcrumb %}
+
+<div class="pagetitle">
+    <h1>Prescription List</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'main' %}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Prescription List</li>
+        </ol>
+    </nav>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+
+<table class="table bg-white table-hover datatable">
+    <thead>
+        <tr class="text-center">
+            <th>Sr No</th>
+            <th>Date</th>
+            <th>Customer Name</th>
+            <th>Mobile No</th>
+            <th>Optometrist Name</th>
+            <th>Power Details</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    {% for i in data %}
+    <tr>
+        <td>{{i.id}}</td>
+        <td>{{i.date|date:"d M Y"}}</td>
+        <td><a href="{% url 'customer_details_view' i.customer_info %}">{{i.get_name|title}}</a></td>
+        <td>{{i.mobileno}}</td>
+        <td>{{i.optometrist_name}}</td>
+        <td>
+            <table class="table table-bordered" style="background-color: white;font-size: 13px;">
+                <tr>
+                    <td>Date</td>
+                    <td colspan="4">RIGHT EYE</td>
+                    <td colspan="4">LEFT EYE</td>
+                </tr>
+                <tr>
+                    <td>{{i.date|date:"d/m/Y"}}</td>
+                    <td>SPH</td>
+                    <td>CYL</td>
+                    <td>AXIS</td>
+                    <td>VISION</td>
+                    <td>SPH</td>
+                    <td>CYL</td>
+                    <td>AXIS</td>
+                    <td>VISION</td>
+                </tr>
+                <tr>
+                    <td>DISTANCE</td>
+                    <td>{{i.RDSPH}}</td>
+                    <td>{{i.RDCYL}}</td>
+                    <td>{{i.RDAXIS}}</td>
+                    <td>{{i.RDVISION}}</td>
+                    <td>{{i.LDSPH}}</td>
+                    <td>{{i.LDCYL}}</td>
+                    <td>{{i.LDAXIS}}</td>
+                    <td>{{i.LDVISION}}</td>
+
+                </tr>
+                {% if i.RADD %}
+                <tr>
+                    <td>ADD</td>
+                    <td colspan="4">{{i.RADD}}</td>
+                    <td colspan="4">{{i.LADD}}</td>
+                </tr>
+                <tr>
+                    <td>NEAR</td>
+                    <td>{{i.RNSPH}}</td>
+                    <td>{{i.RNCYL}}</td>
+                    <td>{{i.RNAXIS}}</td>
+                    <td>{{i.RNVISION}}</td>
+                    <td>{{i.LNSPH}}</td>
+                    <td>{{i.LNCYL}}</td>
+                    <td>{{i.LNAXIS}}</td>
+                    <td>{{i.LNVISION}}</td>
+
+                </tr>
+                {% endif %}
+                {% if i.wear %}
+                <tr>
+                    <td colspan="9">{{i.wear|title}}</td>
+
+                </tr>
+                {% endif %}
+            </table>
+        </td>
+
+        <td>
+            <div class="d-flex">
+                <a href="{% url 'prescription_pdf' i.id %}" target="_blank" class="btn btn-success btn-sm"><i
+                        class="bi bi-printer"></i></a>
+                <a href="{% url 'customer_update' i.id %}" class="btn mx-1 btn-warning btn-sm"><i
+                        class="bi bi-box-arrow-up"></i></a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

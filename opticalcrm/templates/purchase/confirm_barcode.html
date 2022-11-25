@@ -1,0 +1,60 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block breadcrumb %}
+
+<div class="pagetitle">
+    <h1>Pending Barcode<span id="count" class="badge rounded-pill bg-warning text-dark mx-2"></span>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'main' %}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Pending Barcode</li>
+            </ol>
+        </nav>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+
+<table class="table bg-white table-hover datatable">
+    <tr class="table-dark">
+      
+        <th>Purchase Date</th>
+        <th>Product</th>
+        <th>Description</th>
+        <th>Barcode</th>
+        <th>Action</th>
+    </tr>
+    {% for i in data %}
+    {% if i.status == 'no' %}
+    <div class="GFG">
+        <tr>
+        
+            <td>{{i.date}}</td>
+            <td>{{i.product|title}}</td>
+            <td>{{i.description|title}}</td>
+            <td>{{i.barcode}}</td>
+            <td>
+                <a class="btn btn-success btn-sm" href="{% url 'confirm_barcodeid' i.id %}"><i
+                        class="bi bi-box-arrow-up"></i></a>
+            </td>
+        </tr>
+    </div>
+    
+    {% endif %}
+    {% endfor %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            var count = $(".GFG").length;
+            $('#count').text(count)
+
+        });
+    </script>
+</table>
+
+
+
+
+{% endblock content %}

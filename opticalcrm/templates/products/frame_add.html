@@ -1,0 +1,143 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block breadcrumb %}
+<style>
+    .asteriskField {
+        color: red;
+    }
+</style>
+<div class="pagetitle">
+    <h1>Add Frame </h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'main' %}">Dashboard</a></li>
+            <li class="breadcrumb-item">Products</li>
+            <li class="breadcrumb-item active">Add Frame</li>
+        </ol>
+    </nav>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row">
+
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+
+                <div class="tab-content pt-2">
+                    <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                        <h5 class="card-title fw-bold text-center text-primary">Add Frame</h5>
+                        <form class="row g-3" method="POST" novalidate>
+                            {% csrf_token %}
+                            <div class="col-md-3">
+                                {{fm.product_code|as_crispy_field}}
+                            </div>
+
+                            <div class="col-md-5">
+                                {{fm.frame_name|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{fm.company_name|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{fm.gender|as_crispy_field}}
+                            </div>
+
+                            <div class="col-md-4">
+                                {{fm.color|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{fm.size|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{fm.type|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{fm.shape|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{fm.material|as_crispy_field}}
+                            </div>
+                            <div class="col-md-6">
+                                {{fm.purchase_price|as_crispy_field}}
+                            </div>
+                            <div class="col-md-6">
+                                {{fm.retail_price|as_crispy_field}}
+                            </div>
+                                
+                            <div class="col-12">
+                                <input type="hidden" name="product_name" value="Frame" id="">
+                                <button class="btn btn-primary" type="submit">Add</button>
+                                <a href="" class="btn btn-secondary">Back</a>
+                            </div>
+                        </form>
+                    </div>
+
+                </div><!-- End Bordered Tabs -->
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body pt-3">
+                <h5 class="card-title fw-bold text-center text-primary">Frame Details</h5>
+                <table class="table bg-white table-hover datatable">
+                    <tr class="table-dark">
+                        <th>Id</th>
+                        <th>Product Code</th>
+                        <th>Description</th>
+                        <th>Purchase Price</th>
+                        <th>Retail Price</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for i in data %}
+                    <tr>
+                        <td>{{i.id}}</td>
+                        <td>{{i.product_code}}</td>
+                        <td>
+                            {% if i.company_name %}{{i.company_name}}-{% endif %}
+                            {% if i.frame_name %}{{i.frame_name}}-{% endif %}
+                            {% if i.size %}{{i.size}}-{% endif %}
+                            {% if i.color %}{{i.color}}-{% endif %}
+                            {% if i.gender %}{{i.gender}}-{% endif %}
+                            {% if i.type %}{{i.type}}-{% endif %}
+                            {% if i.shape %}{{i.shape}}-{% endif %}
+                            {% if i.material %}{{i.material}}-{% endif %}
+
+                        </td>
+                        <td>{{i.purchase_price}}</td>
+                        <td>{{i.retail_price}}</td>
+
+                        <td>
+                            <a href="" class="btn btn-warning btn-sm"><i class="bi bi-box-arrow-up"></i></a>
+                            <a href="" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="{% static 'js/message.js' %}"></script>
+{% if messages %}
+{% for message in messages %}
+
+<script>
+    swal({
+        text: "{{message}}",
+        icon: "success",
+    }).then(function () {
+        window.location = "";
+    });
+</script>
+
+{% endfor %}
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,72 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block breadcrumb %}
+
+<div class="pagetitle">
+    <h1>Confirm Barcode</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'main' %}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'confirm_barcode' %}">Pending Barcode</a></li>
+            <li class="breadcrumb-item active">Confirm Barcode</li>
+        </ol>
+    </nav>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-2">
+
+    </div>
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+
+                <div class="tab-content pt-2">
+
+                    <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                        <h5 class="card-title">Confirm Barcode</h5>
+                        
+                        <div class="col-md-12">
+                            <form action="" method="POST" novalidate>
+                                {% csrf_token %}
+                                <div class="text-center">
+                                    <h6>{{data.date}}</h6>
+                                    <h6>{{data.product}}</h6>
+                                    <h6>{{data.description}}</h6>
+
+                                    <!-- <input type="text" class="form-control" name="barcode" id="barcode_id"> -->
+                                    {{fm.barcode|as_crispy_field}}
+                                    <input type="submit" class="btn btn-success mt-3" value="Confirm Barcode">
+                                    <a href="{% url 'confirm_barcode' %}" class="btn btn-info mt-3">Back</a>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div><!-- End Bordered Tabs -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/message.js' %}"></script>
+{% if messages %}
+{% for message in messages %}
+
+<script>
+    swal({
+        text: "{{message}}",
+        icon: "success",
+    }).then(function () {
+        window.location = "{% url 'confirm_barcode' %}";
+    });
+</script>
+
+{% endfor %}
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,144 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block breadcrumb %}
+
+<div class="pagetitle">
+  <h1>Customer Update</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'main' %}">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'customer_list' %}">Customers List</a></li>
+      <li class="breadcrumb-item active">Customer Update</li>
+    </ol>
+  </nav>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row">
+  <div class="col-xl-2">
+
+  </div>
+  <div class="col-xl-8">
+    <div class="card">
+      <div class="card-body pt-3">
+        <!-- Bordered Tabs -->
+
+        <div class="tab-content pt-2">
+
+          <div class="tab-pane fade show active profile-overview" id="profile-overview">
+            <h5 class="card-title">Customer Update</h5>
+            <form class="row g-3 needs-validation" method="POST" novalidate>
+              {% csrf_token %}
+              <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">First name</label>
+                <input type="text" value="{{data.first_name}}" class="form-control" id="validationCustom01" name="fname"
+                  required>
+                <div class="invalid-feedback">
+                  Please choose a First Name.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="validationCustom02" class="form-label">middle name</label>
+                <input type="text" value="{{data.middle_name}}" class="form-control" id="validationCustom02"
+                  name="mname" required>
+                <div class="invalid-feedback">
+                  Please choose a Middle Name.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="validationCustom03" class="form-label">Last name</label>
+                <input type="text" value="{{data.last_name}}" class="form-control" id="validationCustom03" name="lname"
+                  required>
+                <div class="invalid-feedback">
+                  Please choose a Last Name.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="validationCustomUsername" class="form-label">Mobile No</label>
+                <div class="input-group has-validation">
+
+                  <input type="text" value="{{data.mobileno}}" class="form-control" id="validationCustomUsername"
+                    name="mobno" aria-describedby="inputGroupPrepend" required>
+
+                  <div class="invalid-feedback">
+                    Please choose a Mobile No.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email ID</label>
+                <div>
+
+                  <input type="text" value="{{data.email_id}}" name="emailid" class="form-control">
+
+                </div>
+              </div>
+              <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <label class="form-label">BirthDate</label>
+                        <div>
+                            <input type="date" id="bdate" name="bdate" class="form-control" value="{{data.birthdate|date:"Y-m-d"}}">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label">Age</label>
+                        <div>
+                            <input type="text" id="age" name="age" class="form-control" value="{{data.age}}">
+                            <input type="hidden" name="custid" id="" value="{{data.id}}">
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+              <div class="col-md-12">
+                <label for="validationCustom04" class="form-label">Address</label>
+                <input type="text" value="{{data.address}}" name="address" class="form-control" id="validationCustom04"
+                  required>
+                <div class="invalid-feedback">
+                  this field required.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label for="validationCustom05" class="form-label">city</label>
+                <input type="text" value="{{data.city}}" name="city" class="form-control" id="validationCustom05"
+                  required>
+                <div class="invalid-feedback">
+                  Please provide a valid city.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="validationCustom06" class="form-label">state</label>
+                <input type="text" value="{{data.state}}" name="state" class="form-control" id="validationCustom06"
+                  required>
+                <div class="invalid-feedback">
+                  Please provide a valid state.
+                </div>
+              </div>
+
+
+              <div class="col-12">
+                <button class="btn btn-primary" type="submit">Update</button>
+                <a href="{% url 'customer_list' %}" class="btn btn-secondary">Back</a>
+              </div>
+            </form>
+          </div>
+        </div><!-- End Bordered Tabs -->
+      </div>
+    </div>
+  </div>
+  <script src="{% static 'js/message.js' %}"></script>
+  {% if messages %}
+  {% for message in messages %}
+  
+  <script>
+      swal({
+          text: "{{message}}",
+          icon: "success",
+      }).then(function () {
+          window.location = "{% url 'customer_list' %}";
+      });
+  </script>
+  
+  {% endfor %}
+  {% endif %}
+  {% endblock content %}

@@ -1,0 +1,71 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}
+<title>Shree Balaji Opticals-Sales</title>
+{% endblock %}
+{% block breadcrumb %}
+<div class="pagetitle">
+    <h1>Update Pending Amount</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'main' %}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'confirm_barcode' %}">Sales</a></li>
+            <li class="breadcrumb-item active">Update Pending Amount</li>
+        </ol>
+    </nav>
+</div>
+{% endblock breadcrumb %}
+{% block content %}
+<div class="row">
+    <div class="col-xl-2">
+    </div>
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+
+                <div class="tab-content pt-2">
+
+                    <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                        <h5 class="card-title">Update Amount</h5>
+                        <h6>Bill No : {{data.billno}}</h6>
+                        <h6>Bill Date : {{data.billdate}}</h6>
+                        <h6>Name : {{data.name}}</h6>
+                        
+            
+                        <div class="col-md-12">
+                            <form action="" method="POST" novalidate>
+                                {% csrf_token %}
+                                <label for="amount">Pending Amount</label>
+                                <div class="text-center">
+                                    
+                                    <input type="text" class="form-control" name="amount" id="amount" value="{{data.pendingamount}}">
+                          
+                                    <input type="submit" class="btn btn-success mt-3" value="Update Amount">
+                                    <a href="{% url 'deliver_anyway' data.id %}" class="btn btn-warning mt-3">Delivered Anyway</a>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div><!-- End Bordered Tabs -->
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/message.js' %}"></script>
+{% if messages %}
+{% for message in messages %}
+
+<script>
+    swal({
+        text: "{{message}}",
+        icon: "success",
+    }).then(function () {
+        window.location = "{% url 'complete_order' %}";
+    });
+</script>
+
+{% endfor %}
+{% endif %}
+{% endblock content %}

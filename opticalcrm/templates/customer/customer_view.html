@@ -1,0 +1,165 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block breadcrumb %}
+
+<div class="pagetitle">
+    <h1>Customer Details</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'main' %}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'customer_list' %}">Customer List</a></li>
+            <li class="breadcrumb-item active">Customer Details</li>
+        </ol>
+    </nav>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-2">
+
+    </div>
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+
+                <div class="tab-content pt-2">
+
+                    <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                        <h5 class="card-title">Customer Details</h5>
+
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 fw-bold text-muted">Full Name</div>
+                            <div class="col-lg-9 col-md-8">{{data.get_name|title}}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 fw-bold text-muted">Mobile No</div>
+                            <div class="col-lg-9 col-md-8">{{data.mobileno}}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 fw-bold text-muted">Email ID</div>
+                            <div class="col-lg-9 col-md-8">{{data.email_id}}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 fw-bold text-muted">Address</div>
+                            <div class="col-lg-9 col-md-8">{{data.address|title}}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 fw-bold text-muted">City</div>
+                            <div class="col-lg-9 col-md-8">{{data.city|title}}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 fw-bold text-muted">State</div>
+                            <div class="col-lg-9 col-md-8">{{data.state|title}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 fw-bold text-muted">Birth Date</div>
+                            <div class="col-lg-9 col-md-8">{{data.birthdate|date:"d-m-Y"}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 fw-bold text-muted">Age</div>
+                            <div class="col-lg-9 col-md-8">{{data.age}}</div>
+                        </div>
+                    </div>
+                </div><!-- End Bordered Tabs -->
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body pt-2 row">
+            <h5 class="card-title">Prescription</h5>
+            {% for i in dt %}
+            <table class="table table-bordered" style="background-color: white;">
+                <tr>
+                    <td>Date:. {{i.date|date:"d/m/Y"}}</td>
+                    <td colspan="4">RIGHT EYE</td>
+                    <td colspan="4">LEFT EYE</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>SPH</td>
+                    <td>CYL</td>
+                    <td>AXIS</td>
+                    <td>VISION</td>
+                    <td>SPH</td>
+                    <td>CYL</td>
+                    <td>AXIS</td>
+                    <td>VISION</td>
+                </tr>
+                <tr>
+                    <td>DISTANCE</td>
+                    <td>{{i.RDSPH}}</td>
+                    <td>{{i.RDCYL}}</td>
+                    <td>{{i.RDAXIS}}</td>
+                    <td>{{i.RDVISION}}</td>
+                    <td>{{i.LDSPH}}</td>
+                    <td>{{i.LDCYL}}</td>
+                    <td>{{i.LDAXIS}}</td>
+                    <td>{{i.LDVISION}}</td>
+                    
+                </tr>
+               
+                {% if i.RADD %}
+                <tr>
+                    <td>ADD</td>
+                    <td colspan="4">{{i.RADD}}</td>
+                    <td colspan="4">{{i.LADD}}</td>
+                </tr>
+                
+                <tr>
+                    <td>NEAR</td>
+                    <td>{{i.RNSPH}}</td>
+                    <td>{{i.RNCYL}}</td>
+                    <td>{{i.RNAXIS}}</td>
+                    <td>{{i.RNVISION}}</td>
+                    <td>{{i.LNSPH}}</td>
+                    <td>{{i.LNCYL}}</td>
+                    <td>{{i.LNAXIS}}</td>
+                    <td>{{i.LNVISION}}</td>
+                    
+                </tr>
+                {% endif %}
+                
+                
+            </table>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body pt-2">
+            <h5 class="card-title">Billing Details</h5>
+            <table class="table">
+                <tr>
+                    <th>Bill No</th>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Total Amount</th>
+                    <th>User Name</th>
+                    <th>Action</th>
+                </tr>
+                {% for i in bill %}
+                <tr>
+                    <td>{{i.billno}}</td>
+                    <td>{{i.billdate|date:"d/m/Y h:i A"}}</td>
+                    <td>{{i.name|title}}</td>
+                    <td>{{i.paybleamount}}</td>
+                    <td>{{i.generatedby}}</td>
+                    <td>
+                        <a href="{% url 'download_invoice_view' i.id %}" target="_blank"
+                    class="btn btn-warning mx-1 rounded-circle btn-sm">
+                    <i class="bi bi-printer"></i>
+                </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

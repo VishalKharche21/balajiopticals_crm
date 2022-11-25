@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block breadcrumb %}
+
+<div class="pagetitle">
+    <h1>Customers List</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'main' %}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Customers List</li>
+        </ol>
+    </nav>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+        <table class="table bg-white table-hover datatable">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Mobile No</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Action</th>
+                <th><a href="{% url 'customer_add' %}" class="btn btn-primary btn-sm text-white"><i class="bi bi-plus-lg"></i></a></th>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.get_name|title}}</td>
+                <td>{{i.mobileno}}</td>
+                <td>{{i.email_id}}</td>
+                <td>{{i.address}}</td>
+                <td>{{i.city}}</td>
+                <td>{{i.state}}</td>
+                <td>
+                    <a href="{% url 'customer_details_view' i.id %}" title=" View " class="btn btn-success btn-sm" ><i class="bi bi-eye"></i></a>
+                    <a href="{% url 'customer_update' i.id %}" title=" Update " class="btn btn-warning btn-sm"><i class="bi bi-box-arrow-up"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+{% endblock content %}
+

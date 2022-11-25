@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block breadcrumb %}
+
+<div class="pagetitle">
+    <h1>Purchase History</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'main' %}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Purchase History</li>
+        </ol>
+    </nav>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+        <table class="table bg-white table-hover datatable">
+            <tr>
+                <th>#</th>
+                <th>Purchase Date</th>
+                <th>Supplier Name</th>
+                <th>Product Name</th>
+                <th>Bill No</th>
+                <th>Product Code</th>
+                <th>Product Description</th>
+                <th>Purchase Price</th>
+                <th>Quantity</th>
+                <th>Total Purchase Price</th>
+                <th>Retail Price</th>
+            </tr>
+            {% for i in data %}
+            
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.date}}</td>
+                <td>{{i.supplier|title}}</td>
+                <td>{{i.product}}</td>
+                <td>{{i.bill_no}}</td>
+                <td>{{i.product_code}}</td>
+                <td>{{i.description}}</td>
+                <td>{{i.purchase_rs}}</td>
+                <td>{{i.quantity}}</td>
+                <td>{{i.total_purchase_rs}}</td>
+                <td>{{i.mrp}}</td>
+                
+            </tr>
+            {% endfor %}
+        </table>
+{% endblock content %}
+

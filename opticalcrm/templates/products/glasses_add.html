@@ -1,0 +1,142 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block breadcrumb %}
+<style>
+    .asteriskField {
+        color: red;
+    }
+</style>
+<div class="pagetitle">
+    <h1>Add Glasses </h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'main' %}">Dashboard</a></li>
+            <li class="breadcrumb-item">Products</li>
+            <li class="breadcrumb-item active">Add GLasses</li>
+        </ol>
+    </nav>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row">
+
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+
+                <div class="tab-content pt-2">
+                    <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                        <h5 class="card-title fw-bold text-center text-primary">Add Glasses</h5>
+                        <form class="row g-3" method="POST" novalidate>
+                            {% csrf_token %}
+                            <div class="col-md-3">
+                                {{fm.product_code|as_crispy_field}}
+                            </div>
+
+                            <div class="col-md-5">
+                                {{fm.glass_details|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{fm.company_name|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{fm.color|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{fm.material|as_crispy_field}}
+                            </div>
+
+                            <div class="col-md-3">
+                                {{fm.coting|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{fm.design|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{fm.index|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{fm.purchase_price|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{fm.retail_price|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{fm.barcode|as_crispy_field}}
+                            </div>
+                            
+                            <input type="hidden" name="product_name" value="Glass" id="">
+   
+                            <div class="col-12">
+                                <button class="btn btn-primary" type="submit">Add</button>
+                                <a href="" class="btn btn-secondary">Back</a>
+                            </div>
+                        </form>
+                    </div>
+
+                </div><!-- End Bordered Tabs -->
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body pt-3">
+                <h5 class="card-title fw-bold text-center text-primary">Glasses Details</h5>
+                <table class="table bg-white table-hover datatable">
+                    <tr class="table-dark">
+                        <th>Id</th>
+                        <th>Product Code</th>
+                        <th>Description</th>
+                        <th>Purchase Price</th>
+                        <th>Retail Price</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for i in data %}
+                    <tr>
+                        <td>{{i.id}}</td>
+                        <td>{{i.product_code}}</td>
+                        <td>
+                            {% if i.company_name %}{{i.company_name}}-{% endif %}
+                            {% if i.color %}{{i.color}}-{% endif %}
+                            {% if i.glass_details %}{{i.glass_details}}-{% endif %}
+                            {% if i.coting %}{{i.coting}}-{% endif %}
+                            {% if i.design %}{{i.design}}-{% endif %}
+                            {% if i.index %}{{i.index}}{% endif %}
+                            
+
+                        </td>
+                        <td>{{i.purchase_price}}</td>
+                        <td>{{i.retail_price}}</td>
+
+                        <td>
+                            <a href="" class="btn btn-warning btn-sm"><i class="bi bi-box-arrow-up"></i></a>
+                            <a href="" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="{% static 'js/message.js' %}"></script>
+{% if messages %}
+{% for message in messages %}
+
+<script>
+    swal({
+        text: "{{message}}",
+        icon: "success",
+    }).then(function () {
+        window.location = "";
+    });
+</script>
+
+{% endfor %}
+{% endif %}
+{% endblock content %}
