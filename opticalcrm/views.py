@@ -1024,3 +1024,4 @@ def complete_order(request):
         return render(request , 'sales/complete_order.html',context)
     else:
         return redirect('login')
+
